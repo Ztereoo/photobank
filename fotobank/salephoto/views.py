@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
+from .models import Photo
 
 
 def index(request):
@@ -7,4 +8,8 @@ def index(request):
 
 
 def allphoto(request):
-    return render(request, 'allphoto.html', {'message': 'hello'})
+    return render(request, 'allphoto.html', {'message': 'All photo be placed'})
+
+def photo_detail(request,pk):
+    photo=get_object_or_404(Photo,pk=pk)
+    return (request,'photo_detail.html', {'photo':photo})

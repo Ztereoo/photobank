@@ -8,7 +8,8 @@ def index(request):
 
 
 def allphoto(request):
-    return render(request, 'allphoto.html', {'message': 'All photo be placed'})
+    photo= Photo.objects.all()
+    return render(request, 'allphoto.html', {'photo': photo})
 
 def photo_detail(request,pk):
     photo=get_object_or_404(Photo,pk=pk)

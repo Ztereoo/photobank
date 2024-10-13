@@ -18,25 +18,23 @@ class Photo(models.Model):
 
     def get_absolute_url(self):
         return reverse('photo_detail',kwargs={'pk':self.pk})
-    # def save(self, *args, **kwargs):
-    #     if self.image_hr:
-    #         try:
-    #             img = Image.open(self.image_hr)
-    #             exif_data = img._getexif()
-    #             if exif_data:
-    #                 for tag, value in exif_data.items():
-    #                     tag_name = ExifTags.TAGS.get(tag, tag)
-    #                     if tag_name == "DateTimeOriginal":
-    #                         try:
-    #                             self.date_taken = datetime.strptime(value, '%Y:%m:%d %H:%M:%S')
-    #                         except (ValueError, TypeError):
-    #                             pass
-    #         except Exception as e:
-    #             print(f"Ошибка при обработке изображения: {e}")
-    #         finally:
-    #             img.close()
-    #
-    #     super().save(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        if self.image_hr:
+            img = Image.open(self.image_hr)
+            exif_data = img._getexif()
+
+            if exif_data:
+                for tag, value in exif_data.items():
+                    tag_name = TAGS.get(tag, tag)
+
+                    if tag_name == "DateTimeOriginal":
+                        try:
+                            self.date_taken = datetime.strptime(value, '%Y:%m:%d %H:%M:%S').date()
+                        except (ValueError, TypeError):
+                            pass
+
+        super().save(*args, **kwargs)
 
     class Meta():
         verbose_name='Фото'

@@ -8,8 +8,9 @@
 {% for item in photo %}
 <h2>{{ item.title }}</h2>
 <p>{{ item.content }}</p>
-<img src="{{item.image_hr.url}}" width="700">
-<p>{{item.date_created}}</p>
+<img src="{{item.image_hr.url}}" width="600">
+<p>Дата загрузки {{item.date_created}}</p>
+<p>Дата создания {{item.date_taken}}</p>
 {% endfor %}
 </body>
 </html>

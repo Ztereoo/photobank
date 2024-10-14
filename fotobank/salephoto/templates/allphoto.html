@@ -1,16 +1,48 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title%}
+{% endblock%}
+{% block sidebar %}
+
+{% endblock %}
+
+
+{% block content%}
+
+
+
+
 {% for item in photo %}
-<h2>{{ item.title }}</h2>
-<p>{{ item.content }}</p>
-<img src="{{item.image_hr.url}}" width="600">
-<p>Дата загрузки {{item.date_created}}</p>
-<p>Дата создания {{item.date_taken}}</p>
-{% endfor %}
-</body>
-</html>
+    <div class="card">
+        <div class="card-header">
+            {{forloop.counter}}
+            Категория: <a href="#">Позже</a>
+        </div>
+        <div class="card-body">
+            <div class="media">
+                {% if item.image_hr%}
+                <img src="{{item.image_hr.url }}" alt="No photo for this item" width="600">
+                <p>Размер изображения: {{item.image_hr.size|filesizeformat}}</p>
+                <p>Ширина изображения: {{item.image_hr.width}} px</p>
+                <p>Высота изображения: {{item.image_hr.height}} px</p>
+                {% else %}
+                No photo
+                {% endif %}
+                <div class="media-body">
+                    <h5 class="card-title">{{item.title}}</h5>
+                    <p class="card-text">{{item.content|truncatewords:20}}</p>
+                    <a href="{{item.get_absolute_url}}" class="btn btn-primary">Read more</a>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer text-muted">
+            Новость создана <br>{{item.date_created}}<br>
+        </div>
+    </div>
+{% endfor%}
+
+
+{% endblock%}
+
+

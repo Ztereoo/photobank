@@ -34,6 +34,7 @@ class Photo(models.Model):
                         except (ValueError, TypeError):
                             pass
 
+
         super().save(*args, **kwargs)
 
     class Meta():

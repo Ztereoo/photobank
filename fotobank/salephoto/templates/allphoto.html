@@ -6,43 +6,41 @@
 
 {% endblock %}
 
-
-{% block content%}
-
-
-
-
-{% for item in photo %}
-    <div class="card">
-        <div class="card-header">
-            {{forloop.counter}}
-            Категория: <a href="#">Позже</a>
-        </div>
-        <div class="card-body">
-            <div class="media">
-                {% if item.image_hr%}
-                <img src="{{item.image_hr.url }}" alt="No photo for this item" width="600">
-                <p>Размер изображения: {{item.image_hr.size|filesizeformat}}</p>
-                <p>Ширина изображения: {{item.image_hr.width}} px</p>
-                <p>Высота изображения: {{item.image_hr.height}} px</p>
-                {% else %}
-                No photo
-                {% endif %}
-                <div class="media-body">
-                    <h5 class="card-title">{{item.title}}</h5>
-                    <p class="card-text">{{item.content|truncatewords:20}}</p>
-                    <a href="{{item.get_absolute_url}}" class="btn btn-primary">Read more</a>
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        {% for item in photo %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title">{{ item.title }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="media">
+                            {% if item.image_hr %}
+                                <img src="{{ item.image_hr.url }}" alt="No photo for this item" width="150" class="mr-3">
+                                <div class="media-body">
+                                    <p class="card-text">{{ item.content|truncatewords:8 }}</p>
+                                    <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Read more</a>
+                                </div>
+                            {% else %}
+                                No photo
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        {% if item.date_taken %}
+                            Дата съемки <br>{{ item.date_taken }}<br>
+                        {% else %}
+                            No date found
+                        {% endif %}
+                        Категория: <a href="#">Позже</a>
+                    </div>
                 </div>
             </div>
-
-        </div>
-        <div class="card-footer text-muted">
-            Новость создана <br>{{item.date_created}}<br>
-        </div>
+        {% endfor %}
     </div>
-{% endfor%}
-
-
-{% endblock%}
+</div>
+{% endblock %}
 
 

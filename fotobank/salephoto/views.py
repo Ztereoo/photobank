@@ -14,3 +14,5 @@ def allphoto(request):
 def photo_detail(request,pk):
     photo=get_object_or_404(Photo,pk=pk)
     return (request,'photo_detail.html', {'photo':photo})
+
+

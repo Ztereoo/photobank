@@ -1,10 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h2>HI</h2>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}
+{% endblock %}
+{% block sidebar %}
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+
+            Категория: <a href="{{ news_item.get_absolute_url}}">{{ news_item.category}}</a>
+        </div>
+        <div class="card-body">
+            <div class="media">
+                {% if photo.image_hr%}
+                <img src="{{photo.image_hr.url }}" alt="No photo for this item" width="600">
+                {% else %}
+                No photo
+                {% endif %}
+                <div class="media-body">
+                    <h4 class="card-title">{{photo.title}}</h4>
+                    <h6 class="card-text">Описание: {{photo.content}}</h6>
+                    <p>Размер изображения: {{photo.image_hr.size|filesizeformat}}</p>
+                    <p>Ширина изображения: {{photo.image_hr.width}} px</p>
+                    <p>Высота изображения: {{photo.image_hr.height}} px</p>
+                    <p>Дата съемки: {{photo.date_taken}} </p>
+                    <div class="card-buttons">
+                        <a href="{% url 'allphoto' %}" class="btn btn-primary">Вернуться на главную</a>
+                        <a href="#" class="btn btn-primary">Купить фото</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            Новость создана <br>{{photo.date_created|date:"d-m-Y"}}
+            <br>{{photo.date_created|timesince}} назад
+        </div>
+    </div>
+{% endblock %}

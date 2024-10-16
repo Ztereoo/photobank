@@ -1,14 +1,16 @@
-<!--{% load news_tags %}-->
-<!--{% get_list_categories as categories %}-->
-
-<!--{% comment %}-->
-<!--<div class="list-group">-->
-<!--    {% for item in categories%}-->
-<!--    <a href="{% url 'category' item.pk %}" class="list-group-item list-group-item-action">{{item.title}}</a>-->
-<!--    {% endfor %}-->
-<!--</div>-->
-
-<!--<br>-->
-<!--{% endcomment %}-->
-
-<!--{% show_categories%}-->
+<div class="col-md-3">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h4>Категории</h4>
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for category in categories %}
+            <li class="list-group-item">
+                <a href="{% url 'category_photos' category.id %}" class="text-decoration-none">
+                    {{ category.title }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
